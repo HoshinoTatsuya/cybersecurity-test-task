@@ -40,20 +40,6 @@ services:
     networks:
       - api-network
 
-  ms-comments:
-    image: node:20-alpine
-    container_name: ms-comments
-    restart: unless-stopped
-    environment:
-      ENV: development
-    volumes:
-      - ./:/workspace
-      - backend_nm:/workspace/node_modules
-    working_dir: /workspace
-    command: /bin/sh -c "yarn install && yarn start:dev ms-comments"
-    networks:
-      - api-network
-
 volumes:
   backend_nm:
 

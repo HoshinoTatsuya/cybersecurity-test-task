@@ -62,7 +62,7 @@ module.exports = {
     'import/no-unresolved': [
       2,
       {
-        ignore: ['src/', '@lave/', '@libs/', 'data/'],
+        ignore: ['src/'],
         commonjs: true,
         amd: true,
         caseSensitiveStrict: true,

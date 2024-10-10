@@ -26,13 +26,10 @@ setup-network:
 dev-setup:
 	cp -f config/dev.env config/local.env
 
-dev-common:
-	docker-compose -f docker-compose.yml --env-file ${ENV_FILE_PATH} up -d db
-
-dev-ms-users: dev-common
+dev-ms-users:
 	docker-compose -f docker-compose.yml up ms-users
 
-dev: setup-network dev-common
+dev: setup-network
 	docker-compose -f docker-compose.yml --env-file ${ENV_FILE_PATH} up -d
 
 dev-stop:

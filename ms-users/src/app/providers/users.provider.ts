@@ -8,6 +8,7 @@ import { UsersRepository } from '../repositories/users/users.repository'
 export const USERS_USECASE = Symbol('USERS_USECASE')
 export const UsersProvider: Provider = {
   inject: [UsersRepository, JWT_INTEGRATION_SERVICE],
+
   provide: USERS_USECASE,
   useFactory: (usersRepository: UsersRepository, jwtCustomServiceIntegration: JwtServiceIntegration) =>
     new UsersUsecase(usersRepository, jwtCustomServiceIntegration),
