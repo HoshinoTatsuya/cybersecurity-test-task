@@ -43,7 +43,7 @@ import {
 export class JwtServiceIntegration {
   /**
    * This is description
-   * @param {IRedisService} jwtCustomService - type is {@link IJwtService }
+   * @param {IJwtService} jwtCustomService - type is {@link IJwtService }
    * @constructor
    */
   public constructor(public readonly jwtCustomService: IJwtService) {}
@@ -64,7 +64,7 @@ export class JwtServiceIntegration {
       CreateTokensNewVersionGeneric,
       undefined
     >({
-      accessTokenData: { userId: data.userId, sessionId: data.sessionId },
+      accessTokenData: { userId: data.userId, role: data.role },
     })
 
     if (resultTokenData instanceof JwtCustomException) {

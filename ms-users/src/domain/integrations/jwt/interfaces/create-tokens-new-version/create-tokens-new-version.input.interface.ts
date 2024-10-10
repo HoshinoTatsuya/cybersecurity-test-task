@@ -7,5 +7,5 @@
  */
 export interface ICreateTokensNewVersionInput {
   userId: string
-  sessionId: string
+  role: string
 }

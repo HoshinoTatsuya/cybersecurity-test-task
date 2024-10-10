@@ -29,7 +29,7 @@ export class AuthBaseAuthVersionGuard implements CanActivate {
       token = token.split('Bearer ')[1]
     }
 
-    const result = await this._usersUsecase.verifyToken({ accessToken: token })
+    const result = await this._usersUsecase.verifyToken({ token })
 
     if (result instanceof BaseException) {
       throw BaseException.createError(result, shadowData.userLanguage)

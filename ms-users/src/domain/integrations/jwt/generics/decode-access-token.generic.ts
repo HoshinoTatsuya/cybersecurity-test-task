@@ -1,6 +1,6 @@
 export type DecodeAccessTokenGeneric = {
   userId: string
-  sessionId: string
+  role: string
   iat: number
   exp: number
 }

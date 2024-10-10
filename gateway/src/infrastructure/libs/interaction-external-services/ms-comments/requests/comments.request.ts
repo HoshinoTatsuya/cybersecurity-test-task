@@ -33,7 +33,7 @@ export class CommentsRequest extends BaseRequestsService {
     this._msCommentsConfig = msCommentsConfigService
   }
 
-  public async createComment(payload: ICreateComment): Promise<CreateCommentModel> {
+  public async createComment(payload: ICreateComment): Promise<CreateCommentModel | BaseException> {
     try {
       const result = await this.natsRequestWithResponse<CreateCommentModel, ICreateComment>({
         serviceName: route.comments.nameService,
@@ -45,13 +45,13 @@ export class CommentsRequest extends BaseRequestsService {
         return result
       }
 
-      return new CreateCommentModel()
+      return new CreateCommentModel(result)
     } catch (error) {
       return new BaseException().errorSubstitution({ error })
     }
   }
 
-  public async updateComment(payload: IUpdateComment): Promise<UpdateCommentModel> {
+  public async updateComment(payload: IUpdateComment): Promise<UpdateCommentModel | BaseException> {
     try {
       const result = await this.natsRequestWithResponse<UpdateCommentModel, IUpdateComment>({
         serviceName: route.comments.nameService,
@@ -63,13 +63,13 @@ export class CommentsRequest extends BaseRequestsService {
         return result
       }
 
-      return new UpdateCommentModel()
+      return new UpdateCommentModel(result)
     } catch (error) {
       return new BaseException().errorSubstitution({ error })
     }
   }
 
-  public async deleteComment(payload: IDeleteComment): Promise<DeleteCommentModel> {
+  public async deleteComment(payload: IDeleteComment): Promise<DeleteCommentModel | BaseException> {
     try {
       const result = await this.natsRequestWithResponse<DeleteCommentModel, IDeleteComment>({
         serviceName: route.comments.nameService,
@@ -81,13 +81,13 @@ export class CommentsRequest extends BaseRequestsService {
         return result
       }
 
-      return new DeleteCommentModel()
+      return new DeleteCommentModel(result)
     } catch (error) {
       return new BaseException().errorSubstitution({ error })
     }
   }
 
-  public async getAllMyComments(payload: IGetAllMyComments): Promise<GetAllMyCommentsModel> {
+  public async getAllMyComments(payload: IGetAllMyComments): Promise<GetAllMyCommentsModel | BaseException> {
     try {
       const result = await this.natsRequestWithResponse<GetAllMyCommentsModel, IGetAllMyComments>({
         serviceName: route.comments.nameService,
@@ -99,13 +99,15 @@ export class CommentsRequest extends BaseRequestsService {
         return result
       }
 
-      return new GetAllMyCommentsModel()
+      return new GetAllMyCommentsModel(result)
     } catch (error) {
       return new BaseException().errorSubstitution({ error })
     }
   }
 
-  public async getAllCommentsByUser(payload: IGetAllCommentsByUser): Promise<GetAllCommentsByUserModel> {
+  public async getAllCommentsByUser(
+    payload: IGetAllCommentsByUser,
+  ): Promise<GetAllCommentsByUserModel | BaseException> {
     try {
       const result = await this.natsRequestWithResponse<GetAllCommentsByUserModel, IGetAllCommentsByUser>({
         serviceName: route.comments.nameService,
@@ -117,7 +119,7 @@ export class CommentsRequest extends BaseRequestsService {
         return result
       }
 
-      return new GetAllCommentsByUserModel()
+      return new GetAllCommentsByUserModel(result)
     } catch (error) {
       return new BaseException().errorSubstitution({ error })
     }
