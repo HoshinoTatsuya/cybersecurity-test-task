@@ -1,0 +1,5 @@
+export * from './create-comment.dto'
+export * from './delete-comment.dto'
+export * from './get-all-comments-by-user.dto'
+export * from './get-all-my-comments.dto'
+export * from './update-comment.dto'

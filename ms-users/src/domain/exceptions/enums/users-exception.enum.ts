@@ -1,0 +1,4 @@
+export enum UsersExceptionEnum {
+  FAILED_TO_UPDATE_USER = 'FAILED_TO_UPDATE_USER',
+  USER_IS_NOT_FOUND = 'USER_IS_NOT_FOUND',
+}

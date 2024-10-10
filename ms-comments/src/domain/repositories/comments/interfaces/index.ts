@@ -1,0 +1,6 @@
+export * from './create-comment.interface'
+export * from './delete-comment.interface'
+export * from './drop-expired-comments.interface'
+export * from './get-all-comments.interface'
+export * from './get-comment.interface'
+export * from './update-comment.interface'

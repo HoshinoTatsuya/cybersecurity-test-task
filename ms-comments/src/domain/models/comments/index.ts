@@ -1,0 +1,5 @@
+export * from './create-comment.model'
+export * from './delete-comment.model'
+export * from './get-all-comments-by-user.model'
+export * from './get-all-my-comments.model'
+export * from './update-comment.model'

@@ -1,0 +1,14 @@
+import { BaseException } from '../../exceptions'
+import { CreateUserModel, GetInfoAboutMeModel } from '../../models/users'
+
+import { ICreateUser, IGetInfoAboutMe } from './methods'
+
+export abstract class IUsers {
+  public abstract createUser(data: ICreateUser): Promise<CreateUserModel | BaseException>
+
+  public abstract uploadAvatar(): Promise<void>
+
+  public abstract confirmAvatar(): Promise<void>
+
+  public abstract getInfoAboutMe(data: IGetInfoAboutMe): Promise<GetInfoAboutMeModel | BaseException>
+}

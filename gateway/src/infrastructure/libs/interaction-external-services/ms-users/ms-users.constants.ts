@@ -1,0 +1,1 @@
+export const MS_USERS_MODULE_OPTIONS = Symbol('MS_USERS_MODULE_OPTIONS')
