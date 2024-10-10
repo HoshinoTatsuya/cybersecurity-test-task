@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common'
-import { AxiosRequestConfig, AxiosResponse } from '@nestjs/terminus/dist/health-indicator/http/axios.interfaces'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export const logAxiosRequest = (value: AxiosRequestConfig, token: string, date: string): void => {
   let payload = value?.data

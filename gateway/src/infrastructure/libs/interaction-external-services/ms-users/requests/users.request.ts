@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { ClientNats } from '@nestjs/microservices'
-import { config } from 'rxjs'
 
+import { BaseException } from '../../../../../domain/exceptions'
 import { BaseRequestsService } from '../base-request.service'
 import { IMsUsersModuleOptionsFactory } from '../ms-users.interface'
-import {route} from "./constants";
 
-import { GetElevatorModel } from './models'
+import { route } from './constants'
+import { IConfirmAvatar, ICreateUser, IGetInfoAboutMe, IUploadAvatar } from './interfaces/users'
+import { ConfirmAvatarModel, CreateUserModel, GetInfoAboutMeModel, UploadAvatarModel } from './models/users'
 
 @Injectable()
 export class UsersRequest extends BaseRequestsService {
@@ -16,95 +17,79 @@ export class UsersRequest extends BaseRequestsService {
     public msUsersConfigService: IMsUsersModuleOptionsFactory,
     public _client: ClientNats,
   ) {
-    super(config.logger.nats, config.logger.axios, _client)
+    super(msUsersConfigService.logger.nats, msUsersConfigService.logger.axios, _client)
     this._msUsersConfig = msUsersConfigService
   }
 
-  public async createUser(payload: { specificationId: number }): Promise<GetElevatorModel> {
+  public async createUser(payload: ICreateUser): Promise<CreateUserModel> {
     try {
-      const elevator = await this.natsRequestWithResponse<
-        RESPONSE TYPE,
-        REQUEST TYPE
-      >({
+      const result = await this.natsRequestWithResponse<CreateUserModel, ICreateUser>({
         serviceName: route.users.nameService,
         method: route.users.methods.createUser,
         payload,
       })
 
-      return new GetElevatorModel({
-        items: elevator.result,
-        remark: elevator.remark,
-        errorCode: elevator.errorCode,
-      })
+      if (result instanceof BaseException) {
+        return result
+      }
+
+      return new CreateUserModel()
     } catch (error) {
-      Logger.error(error?.message, error?.stack, 'ms-electronic-queue')
-      return { items: null, errorCode: MICROSERVICE_IS_DOWN, remark: ERROR }
+      return new BaseException().errorSubstitution({ error })
     }
   }
 
-  public async uploadAvatar(payload: { specificationId: number }): Promise<GetElevatorModel> {
+  public async uploadAvatar(payload: IUploadAvatar): Promise<UploadAvatarModel> {
     try {
-      const elevator = await this.natsRequestWithResponse<
-          RESPONSE TYPE,
-          REQUEST TYPE
-      >({
+      const result = await this.natsRequestWithResponse<UploadAvatarModel, IUploadAvatar>({
         serviceName: route.users.nameService,
         method: route.users.methods.uploadAvatar,
         payload,
       })
 
-      return new GetElevatorModel({
-        items: elevator.result,
-        remark: elevator.remark,
-        errorCode: elevator.errorCode,
-      })
+      if (result instanceof BaseException) {
+        return result
+      }
+
+      return new UploadAvatarModel()
     } catch (error) {
-      Logger.error(error?.message, error?.stack, 'ms-electronic-queue')
-      return { items: null, errorCode: MICROSERVICE_IS_DOWN, remark: ERROR }
+      return new BaseException().errorSubstitution({ error })
     }
   }
 
-  public async confirmAvatar(payload: { specificationId: number }): Promise<GetElevatorModel> {
+  public async confirmAvatar(payload: IConfirmAvatar): Promise<ConfirmAvatarModel> {
     try {
-      const elevator = await this.natsRequestWithResponse<
-          RESPONSE TYPE,
-          REQUEST TYPE
-      >({
+      const result = await this.natsRequestWithResponse<ConfirmAvatarModel, IConfirmAvatar>({
         serviceName: route.users.nameService,
         method: route.users.methods.confirmAvatar,
         payload,
       })
 
-      return new GetElevatorModel({
-        items: elevator.result,
-        remark: elevator.remark,
-        errorCode: elevator.errorCode,
-      })
+      if (result instanceof BaseException) {
+        return result
+      }
+
+      return new ConfirmAvatarModel()
     } catch (error) {
-      Logger.error(error?.message, error?.stack, 'ms-electronic-queue')
-      return { items: null, errorCode: MICROSERVICE_IS_DOWN, remark: ERROR }
+      return new BaseException().errorSubstitution({ error })
     }
   }
 
-  public async getInfoAboutMe(payload: { specificationId: number }): Promise<GetElevatorModel> {
+  public async getInfoAboutMe(payload: IGetInfoAboutMe): Promise<GetInfoAboutMeModel> {
     try {
-      const elevator = await this.natsRequestWithResponse<
-          RESPONSE TYPE,
-          REQUEST TYPE
-      >({
+      const result = await this.natsRequestWithResponse<GetInfoAboutMeModel, IGetInfoAboutMe>({
         serviceName: route.users.nameService,
         method: route.users.methods.getInfoAboutMe,
         payload,
       })
 
-      return new GetElevatorModel({
-        items: elevator.result,
-        remark: elevator.remark,
-        errorCode: elevator.errorCode,
-      })
+      if (result instanceof BaseException) {
+        return result
+      }
+
+      return new GetInfoAboutMeModel()
     } catch (error) {
-      Logger.error(error?.message, error?.stack, 'ms-electronic-queue')
-      return { items: null, errorCode: MICROSERVICE_IS_DOWN, remark: ERROR }
+      return new BaseException().errorSubstitution({ error })
     }
   }
 }

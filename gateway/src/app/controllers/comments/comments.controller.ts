@@ -1,10 +1,11 @@
-import { ClassSerializerInterceptor, Controller, Inject, UseInterceptors } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Inject, Patch, Post } from '@nestjs/common'
+import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiResponse } from '@nestjs/swagger'
 
 import { BaseException } from '../../../domain/exceptions'
+import { BaseApiErrorResponse } from '../../../domain/exceptions/decorators/base-api-error-response.decorator'
 import { IComments } from '../../../domain/interfaces/comments'
-import { CustomMessagePattern } from '../../../infrastructure/libs/nats/custom-decorators/custom-message-pattern.decorator'
 import { COMMENTS_USECASE } from '../../providers/comments.provider'
-import { internalsRoutes } from '../routes'
+import { externalRoutes } from '../routes'
 
 import {
   CreateCommentDto,
@@ -21,13 +22,22 @@ import {
   UpdateCommentPresenter,
 } from './presenters'
 
-@Controller()
+@Controller(externalRoutes.msInfo.controllers.comments)
 export class CommentsController {
   public constructor(@Inject(COMMENTS_USECASE) private readonly _commentsUsecase: IComments) {}
 
-  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.comments.createComment)
-  @UseInterceptors(ClassSerializerInterceptor)
-  public async createComment(data: CreateCommentDto): Promise<CreateCommentPresenter | BaseException> {
+  @Post(externalRoutes.methods.comments.createComment)
+  @ApiOperation({
+    description: 'Create comment',
+  })
+  @ApiBody({
+    required: true,
+    type: CreateCommentDto,
+  })
+  @ApiCreatedResponse({ type: CreateCommentPresenter })
+  //  @ApiResponse(BaseException.categorySchema.SLUG_ALREADY_EXIST)
+  @BaseApiErrorResponse()
+  public async createComment(@Body() data: CreateCommentDto): Promise<CreateCommentPresenter | BaseException> {
     const result = await this._commentsUsecase.createComment(data)
 
     if (result instanceof BaseException) {
@@ -37,9 +47,16 @@ export class CommentsController {
     return new CreateCommentPresenter(result)
   }
 
-  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.comments.updateComment)
-  @UseInterceptors(ClassSerializerInterceptor)
-  public async updateComment(data: UpdateCommentDto): Promise<UpdateCommentPresenter | BaseException> {
+  @Patch(externalRoutes.methods.comments.updateComment)
+  @ApiOperation({
+    description: 'Update comment',
+  })
+  @ApiBody({
+    type: UpdateCommentDto,
+  })
+  @ApiOkResponse({ type: UpdateCommentPresenter })
+  @BaseApiErrorResponse()
+  public async updateComment(@Body() data: UpdateCommentDto): Promise<UpdateCommentPresenter | BaseException> {
     const result = await this._commentsUsecase.updateComment(data)
 
     if (result instanceof BaseException) {
@@ -49,9 +66,17 @@ export class CommentsController {
     return new UpdateCommentPresenter(result)
   }
 
-  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.comments.deleteComment)
-  @UseInterceptors(ClassSerializerInterceptor)
-  public async deleteComment(data: DeleteCommentDto): Promise<DeleteCommentPresenter | BaseException> {
+  @Delete(externalRoutes.methods.comments.deleteComment)
+  @ApiOperation({
+    description: 'Delete comment',
+  })
+  @ApiBody({
+    type: DeleteCommentDto,
+  })
+  @ApiResponse(BaseException.commentsSchema.COMMENTS_IS_NOT_FOUND)
+  @ApiOkResponse({ type: DeleteCommentPresenter })
+  @BaseApiErrorResponse()
+  public async deleteComment(@Body() data: DeleteCommentDto): Promise<DeleteCommentPresenter | BaseException> {
     const result = await this._commentsUsecase.deleteComment(data)
 
     if (result instanceof BaseException) {
@@ -61,8 +86,12 @@ export class CommentsController {
     return new DeleteCommentPresenter(result)
   }
 
-  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.comments.getAllMyComments)
-  @UseInterceptors(ClassSerializerInterceptor)
+  @Get(externalRoutes.methods.comments.getAllMyComments)
+  @ApiOperation({
+    description: 'Get all my comments',
+  })
+  @ApiOkResponse({ type: GetAllMyCommentsPresenter })
+  @BaseApiErrorResponse()
   public async getAllMyComments(data: GetAllMyCommentsDto): Promise<GetAllMyCommentsPresenter | BaseException> {
     const result = await this._commentsUsecase.getAllMyComments(data)
 
@@ -73,8 +102,12 @@ export class CommentsController {
     return new GetAllMyCommentsPresenter(result)
   }
 
-  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.comments.getAllCommentsByUser)
-  @UseInterceptors(ClassSerializerInterceptor)
+  @Get(externalRoutes.methods.comments.getAllCommentsByUser)
+  @ApiOperation({
+    description: 'Get all comments by user',
+  })
+  @ApiOkResponse({ type: GetAllCommentsByUserPresenter })
+  @BaseApiErrorResponse()
   public async getAllCommentsByUser(
     data: GetAllCommentsByUserDto,
   ): Promise<GetAllCommentsByUserPresenter | BaseException> {

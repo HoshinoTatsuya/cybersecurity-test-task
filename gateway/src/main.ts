@@ -1,19 +1,46 @@
-import { Logger } from '@nestjs/common'
+import { INestApplication } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
-import { ClientProviderOptions, MicroserviceOptions } from '@nestjs/microservices'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { SecuritySchemeType } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface'
 
 import { AppModule } from './app.module'
-import { NatsClientConfigService } from './infrastructure/libs/nats/config/nats-client.config'
+import { CustomGlobalSettings } from './domain/exceptions'
+import { SwaggerConfigService } from './infrastructure/libs/swagger/config/swagger.config'
 
 async function bootstrap(): Promise<void> {
-  const configService = new ConfigService()
-  const natsClientConfigService = new NatsClientConfigService(configService)
-  const natsClientConfig = natsClientConfigService.createNatsClientOptions() as ClientProviderOptions
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, natsClientConfig)
+  const app = await NestFactory.create(AppModule)
+  CustomGlobalSettings.createGlobalSettings<INestApplication>(app)
 
-  await app.listen()
-  Logger.log(`Service [MS-ELECTRONIC-QUEUE] is running!`)
+  const configService = new ConfigService()
+  const swaggerConfigService = new SwaggerConfigService(configService)
+  const swaggerConfig = swaggerConfigService.createSwaggerOptions()
+
+  const swaggerDocument = new DocumentBuilder()
+    .setTitle(swaggerConfig.title)
+    .setDescription(swaggerConfig.description)
+    .setVersion(swaggerConfig.version)
+    .addBearerAuth({
+      type: swaggerConfig.bearerAuth.type as SecuritySchemeType,
+      description: swaggerConfig.bearerAuth.description,
+      name: swaggerConfig.bearerAuth.name,
+      in: swaggerConfig.bearerAuth.in,
+    })
+    .build()
+
+  app.enableCors()
+
+  app.setGlobalPrefix(configService.get<string>('MICROSERVICES_GATEWAY_ROUTE_PREFIX'), { exclude: [] })
+
+  const document = SwaggerModule.createDocument(app, swaggerDocument)
+
+  SwaggerModule.setup(`${swaggerConfig.routePrefix}/docs`, app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  })
+
+  await app.listen(configService.get<number>('MICROSERVICES_GATEWAY_PORT'))
 }
 
 void bootstrap()

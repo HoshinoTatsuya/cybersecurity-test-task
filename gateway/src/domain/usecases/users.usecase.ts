@@ -1,36 +1,24 @@
 import { Injectable } from '@nestjs/common'
 
+import { IMsCommentsService } from '../../infrastructure/libs/interaction-external-services/ms-comments/interfaces'
+import { IMsUsersService } from '../../infrastructure/libs/interaction-external-services/ms-users/interfaces'
 import { BaseException } from '../exceptions'
 import { IUsers } from '../interfaces/users'
 import { ICreateUser, IGetInfoAboutMe } from '../interfaces/users/methods'
 import { CreateUserModel, GetInfoAboutMeModel } from '../models/users'
-import { IUsersRepository } from '../repositories/users/users.repository'
 
 @Injectable()
 export class UsersUsecase implements IUsers {
-  public constructor(private readonly _usersRepository: IUsersRepository) {}
+  public constructor(
+    private readonly _usersService: IMsUsersService,
+    private readonly _commentsService: IMsCommentsService,
+  ) {}
 
-  public async createUser(data: ICreateUser): Promise<CreateUserModel | BaseException> {
-    const result = await this._usersRepository.createUser(data)
-
-    if (result instanceof BaseException) {
-      return result
-    }
-
-    return new CreateUserModel(result)
-  }
+  public async createUser(data: ICreateUser): Promise<CreateUserModel | BaseException> {}
 
   public async uploadAvatar(): Promise<void> {}
 
   public async confirmAvatar(): Promise<void> {}
 
-  public async getInfoAboutMe(data: IGetInfoAboutMe): Promise<GetInfoAboutMeModel | BaseException> {
-    const result = await this._usersRepository.getOneUser({ userId: data.userId })
-
-    if (result instanceof BaseException) {
-      return result
-    }
-
-    return new GetInfoAboutMeModel(result)
-  }
+  public async getInfoAboutMe(data: IGetInfoAboutMe): Promise<GetInfoAboutMeModel | BaseException> {}
 }

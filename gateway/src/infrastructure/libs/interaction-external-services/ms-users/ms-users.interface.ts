@@ -2,6 +2,10 @@ import { InjectionToken, ModuleMetadata, OptionalFactoryDependency, Type } from 
 
 export interface IMsUsersModuleOptionsFactory {
   serviceName: string
+  logger: {
+    axios: boolean
+    nats: boolean
+  }
 }
 
 export interface MsUsersModuleOptionsFactory {

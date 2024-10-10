@@ -1,10 +1,14 @@
-export const internalsRoutes = {
+export const externalRoutes = {
   msInfo: {
     msName: 'gateway',
     prefixes: {
       gateway: 'gateway',
     },
     apiTags: 'Microservice Gateway',
+    controllers: {
+      users: 'users',
+      comments: 'comments',
+    },
   },
   methods: {
     health: {},

@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { ClientNats } from '@nestjs/microservices'
+
 import { NATS } from '../../nats/constants'
 
 import { IMsUsersService } from './interfaces'

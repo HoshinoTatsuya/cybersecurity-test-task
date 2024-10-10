@@ -1,0 +1,5 @@
+export * from './create-comment.interface'
+export * from './delete-comment.interface'
+export * from './get-all-comments-by-user.interface'
+export * from './get-all-my-comments.interface'
+export * from './update-comment.interface'

@@ -8,5 +8,10 @@ export const route = {
       getInfoAboutMe: 'getInfoAboutMe',
     },
   },
-  auth: {},
+  auth: {
+    nameService: 'users',
+    methods: {
+      login: 'login',
+    },
+  },
 }
