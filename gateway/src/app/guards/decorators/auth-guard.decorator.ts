@@ -1,7 +1,7 @@
-import { BaseException } from '@libs/shared/common/exceptions'
 import { applyDecorators, UseGuards } from '@nestjs/common'
 import { ApiResponse } from '@nestjs/swagger'
 
+import { BaseException } from '../../../domain/exceptions'
 import { AuthBaseAuthVersionGuard } from '../../guards/auth-base-auth-version.guard'
 
 import { ApiVerifyTokenBadResponses } from './api-verify-token-bad-responses.decorator'

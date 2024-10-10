@@ -1,9 +1,8 @@
-import { LanguagesEnum } from '@libs/shared/common/enums/languages.enum'
-import { AuthenticationLanguagesExceptionType } from '@libs/shared/common/exceptions'
-
+import { SupportLanguageEnum } from '../enums/support-language.enum'
 import { authenticationExceptionEn, authenticationExceptionRu } from '../translations'
+import { AuthenticationLanguagesExceptionType } from '../types/authentication'
 
 export const authenticationExceptions: AuthenticationLanguagesExceptionType = {
-  [LanguagesEnum.RU]: authenticationExceptionRu,
-  [LanguagesEnum.EN]: authenticationExceptionEn,
+  [SupportLanguageEnum.RU]: authenticationExceptionRu,
+  [SupportLanguageEnum.EN]: authenticationExceptionEn,
 }

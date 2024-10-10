@@ -1,3 +1,4 @@
+export * from './authentication.exception'
 export * from './comments.exception'
 export * from './users.exception'
 export * from './common.exception'

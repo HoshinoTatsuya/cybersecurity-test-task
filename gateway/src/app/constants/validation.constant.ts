@@ -1,4 +1,4 @@
-import { SupportLanguageEnum } from '../../enums/support-language.enum'
+import { SupportLanguageEnum } from '../../domain/exceptions/enums/support-language.enum'
 
 export const isAlphaLanguage: Record<keyof typeof SupportLanguageEnum, RegExp> = {
   [SupportLanguageEnum.RU]: /^[А-Яа-яЁё\s]+$/,
@@ -6,7 +6,12 @@ export const isAlphaLanguage: Record<keyof typeof SupportLanguageEnum, RegExp> =
 }
 
 export const maxStringLength = 50
-
-export const sortRegExp = /^[A-Za-z-][A-Za-z]{0,50}$/ // /^(-?[A-Za-z])([A-Za-z]{0,50})$/ - это если просто тире или дефис нельзя передавать, так как из тз не особо ясно
-
+export const maxPasswordLength = 24
+export const passwordSettings = {
+  minLength: 9,
+  minUppercase: 1,
+  minLowercase: 1,
+  minNumbers: 1,
+  minSymbols: 1,
+}
 export const uuidV4 = 4

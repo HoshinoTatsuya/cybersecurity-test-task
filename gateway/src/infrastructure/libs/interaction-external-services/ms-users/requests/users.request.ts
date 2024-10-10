@@ -21,7 +21,7 @@ export class UsersRequest extends BaseRequestsService {
     this._msUsersConfig = msUsersConfigService
   }
 
-  public async createUser(payload: ICreateUser): Promise<CreateUserModel> {
+  public async createUser(payload: ICreateUser): Promise<CreateUserModel | BaseException> {
     try {
       const result = await this.natsRequestWithResponse<CreateUserModel, ICreateUser>({
         serviceName: route.users.nameService,
@@ -33,13 +33,13 @@ export class UsersRequest extends BaseRequestsService {
         return result
       }
 
-      return new CreateUserModel()
+      return new CreateUserModel(result)
     } catch (error) {
       return new BaseException().errorSubstitution({ error })
     }
   }
 
-  public async uploadAvatar(payload: IUploadAvatar): Promise<UploadAvatarModel> {
+  public async uploadAvatar(payload: IUploadAvatar): Promise<UploadAvatarModel | BaseException> {
     try {
       const result = await this.natsRequestWithResponse<UploadAvatarModel, IUploadAvatar>({
         serviceName: route.users.nameService,
@@ -57,7 +57,7 @@ export class UsersRequest extends BaseRequestsService {
     }
   }
 
-  public async confirmAvatar(payload: IConfirmAvatar): Promise<ConfirmAvatarModel> {
+  public async confirmAvatar(payload: IConfirmAvatar): Promise<ConfirmAvatarModel | BaseException> {
     try {
       const result = await this.natsRequestWithResponse<ConfirmAvatarModel, IConfirmAvatar>({
         serviceName: route.users.nameService,
@@ -75,7 +75,7 @@ export class UsersRequest extends BaseRequestsService {
     }
   }
 
-  public async getInfoAboutMe(payload: IGetInfoAboutMe): Promise<GetInfoAboutMeModel> {
+  public async getInfoAboutMe(payload: IGetInfoAboutMe): Promise<GetInfoAboutMeModel | BaseException> {
     try {
       const result = await this.natsRequestWithResponse<GetInfoAboutMeModel, IGetInfoAboutMe>({
         serviceName: route.users.nameService,
@@ -87,7 +87,7 @@ export class UsersRequest extends BaseRequestsService {
         return result
       }
 
-      return new GetInfoAboutMeModel()
+      return new GetInfoAboutMeModel(result)
     } catch (error) {
       return new BaseException().errorSubstitution({ error })
     }

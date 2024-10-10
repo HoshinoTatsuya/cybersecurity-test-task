@@ -1,8 +1,7 @@
-import { codeError } from '@libs/shared/common/exceptions/constants/code-error.constant'
-import { constraintError, constraintSuccess } from '@libs/shared/common/exceptions/constants/nesting-text.constant'
-
-import { AuthenticationExceptionEnum } from '../../enums'
-import { AuthenticationExceptionType } from '../../types'
+import { codeError } from '../../constants/code-error.constant'
+import { constraintError, constraintSuccess } from '../../constants/nesting-text.constant'
+import { AuthenticationExceptionEnum } from '../../enums/authentication-exception.enum'
+import { AuthenticationExceptionType } from '../../types/authentication'
 
 export const authenticationExceptionEn: AuthenticationExceptionType = {
   [AuthenticationExceptionEnum.CODE_NOT_FOUND]: {
@@ -183,55 +182,5 @@ export const authenticationExceptionEn: AuthenticationExceptionType = {
     errorName: AuthenticationExceptionEnum.TOKEN_IS_MISSING_IN_HEADERS,
     message: `You don't authorisation! Please login first and try again!`,
     description: `You don't authorisation! Please login first and try again!`,
-  },
-
-  // GREEN API
-  [AuthenticationExceptionEnum.AUTHORIZATION_DECLINED]: {
-    code: codeError[AuthenticationExceptionEnum.AUTHORIZATION_DECLINED],
-    errorName: AuthenticationExceptionEnum.AUTHORIZATION_DECLINED,
-    message: `Authorization of rejection!`,
-    description: `Authorization of rejection!`,
-  },
-  [AuthenticationExceptionEnum.AUTHORIZATION_INTERNAL_SERVER_ERROR]: {
-    code: codeError[AuthenticationExceptionEnum.AUTHORIZATION_INTERNAL_SERVER_ERROR],
-    errorName: AuthenticationExceptionEnum.AUTHORIZATION_INTERNAL_SERVER_ERROR,
-    message: `Server error detected!`,
-    description: `A server error was detected during the authorization request!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_INSUFFICIENT_FUNDS]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_INSUFFICIENT_FUNDS],
-    errorName: AuthenticationExceptionEnum.PHONE_INSUFFICIENT_FUNDS,
-    message: `Insufficient funds!`,
-    description: `Insufficient funds!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_PARAMETER_MUST_BE_SET]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_PARAMETER_MUST_BE_SET],
-    errorName: AuthenticationExceptionEnum.PHONE_PARAMETER_MUST_BE_SET,
-    message: `Parameter (to|txt) must be set!`,
-    description: `Parameter (to|txt) must be set!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_UNSUPPORTED_PARAMETER_VALUE]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_UNSUPPORTED_PARAMETER_VALUE],
-    errorName: AuthenticationExceptionEnum.PHONE_UNSUPPORTED_PARAMETER_VALUE,
-    message: `Undefined error!`,
-    description: `Undefined error!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_ACCOUNT_ACTIVATION_NEEDED]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_ACCOUNT_ACTIVATION_NEEDED],
-    errorName: AuthenticationExceptionEnum.PHONE_ACCOUNT_ACTIVATION_NEEDED,
-    message: `Only template messages allowed!`,
-    description: `Only template messages allowed!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_LIMIT_FOR_NUMBER_EXCEEDED]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_LIMIT_FOR_NUMBER_EXCEEDED],
-    errorName: AuthenticationExceptionEnum.PHONE_LIMIT_FOR_NUMBER_EXCEEDED,
-    message: `Too many requests for this number, retry in 60 seconds!`,
-    description: `Too many requests for this number, retry in 60 seconds!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_INTERNAL_SERVER_ERROR]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_INTERNAL_SERVER_ERROR],
-    errorName: AuthenticationExceptionEnum.PHONE_INTERNAL_SERVER_ERROR,
-    message: `Internal Server Error!`,
-    description: `Internal Server Error!`,
   },
 }

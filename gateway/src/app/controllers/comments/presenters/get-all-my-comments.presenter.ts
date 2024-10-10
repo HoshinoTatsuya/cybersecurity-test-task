@@ -1,7 +1,12 @@
+import { ApiProperty } from '@nestjs/swagger'
+
 import { BaseCommentPresenter } from './base-comment.presenter'
 
 export class GetAllMyCommentsPresenter {
+  @ApiProperty({ type: [BaseCommentPresenter] })
   public items: BaseCommentPresenter[]
+
+  @ApiProperty()
   public totals: number
 
   public constructor(data: GetAllMyCommentsPresenter) {

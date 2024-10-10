@@ -1,8 +1,7 @@
-import { codeError } from '@libs/shared/common/exceptions/constants/code-error.constant'
-import { constraintError, constraintSuccess } from '@libs/shared/common/exceptions/constants/nesting-text.constant'
-
-import { AuthenticationExceptionEnum } from '../../enums'
-import { AuthenticationExceptionType } from '../../types'
+import { codeError } from '../../constants/code-error.constant'
+import { constraintError, constraintSuccess } from '../../constants/nesting-text.constant'
+import { AuthenticationExceptionEnum } from '../../enums/authentication-exception.enum'
+import { AuthenticationExceptionType } from '../../types/authentication'
 
 export const authenticationExceptionRu: AuthenticationExceptionType = {
   [AuthenticationExceptionEnum.CODE_NOT_FOUND]: {
@@ -180,55 +179,6 @@ export const authenticationExceptionRu: AuthenticationExceptionType = {
     description: `Регистрационные данные не найдены!`,
   },
 
-  // GREEN API
-  [AuthenticationExceptionEnum.AUTHORIZATION_DECLINED]: {
-    code: codeError[AuthenticationExceptionEnum.AUTHORIZATION_DECLINED],
-    errorName: AuthenticationExceptionEnum.AUTHORIZATION_DECLINED,
-    message: `Авторизация отклонена!`,
-    description: `Авторизация отклонена!`,
-  },
-  [AuthenticationExceptionEnum.AUTHORIZATION_INTERNAL_SERVER_ERROR]: {
-    code: codeError[AuthenticationExceptionEnum.AUTHORIZATION_INTERNAL_SERVER_ERROR],
-    errorName: AuthenticationExceptionEnum.AUTHORIZATION_INTERNAL_SERVER_ERROR,
-    message: `Зафиксирована серверная ошибка!`,
-    description: `Зафиксирована серверная ошибка в момент запроса на авторизацию!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_INSUFFICIENT_FUNDS]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_INSUFFICIENT_FUNDS],
-    errorName: AuthenticationExceptionEnum.PHONE_INSUFFICIENT_FUNDS,
-    message: `Недостаточно средств!`,
-    description: `Недостаточно средств!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_PARAMETER_MUST_BE_SET]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_PARAMETER_MUST_BE_SET],
-    errorName: AuthenticationExceptionEnum.PHONE_PARAMETER_MUST_BE_SET,
-    message: `Параметр (to|txt) должен быть установлен.!`,
-    description: `Параметр (to|txt) должен быть установлен.!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_UNSUPPORTED_PARAMETER_VALUE]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_UNSUPPORTED_PARAMETER_VALUE],
-    errorName: AuthenticationExceptionEnum.PHONE_UNSUPPORTED_PARAMETER_VALUE,
-    message: `Неопределенная ошибка!`,
-    description: `Неопределенная ошибка!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_ACCOUNT_ACTIVATION_NEEDED]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_ACCOUNT_ACTIVATION_NEEDED],
-    errorName: AuthenticationExceptionEnum.PHONE_ACCOUNT_ACTIVATION_NEEDED,
-    message: `Разрешены только шаблонные сообщения!`,
-    description: `Разрешены только шаблонные сообщения!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_LIMIT_FOR_NUMBER_EXCEEDED]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_LIMIT_FOR_NUMBER_EXCEEDED],
-    errorName: AuthenticationExceptionEnum.PHONE_LIMIT_FOR_NUMBER_EXCEEDED,
-    message: `Слишком много запросов на этот номер. Повторите попытку через 60 секунд!`,
-    description: `Слишком много запросов на этот номер. Повторите попытку через 60 секунд!`,
-  },
-  [AuthenticationExceptionEnum.PHONE_INTERNAL_SERVER_ERROR]: {
-    code: codeError[AuthenticationExceptionEnum.PHONE_INTERNAL_SERVER_ERROR],
-    errorName: AuthenticationExceptionEnum.PHONE_INTERNAL_SERVER_ERROR,
-    message: `Внутренняя ошибка сервера!`,
-    description: `Внутренняя ошибка сервера!`,
-  },
   [AuthenticationExceptionEnum.TOKEN_IS_MISSING_IN_HEADERS]: {
     code: codeError[AuthenticationExceptionEnum.TOKEN_IS_MISSING_IN_HEADERS],
     errorName: AuthenticationExceptionEnum.TOKEN_IS_MISSING_IN_HEADERS,

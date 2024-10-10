@@ -1,9 +1,18 @@
+import { ApiProperty } from '@nestjs/swagger'
+
 import { BasePresenter } from './base.presenter'
 
 export class BaseUserPresenter extends BasePresenter {
+  @ApiProperty()
   public id: string
+
+  @ApiProperty()
   public email: string
+
+  @ApiProperty()
   public name: string
+
+  @ApiProperty()
   public lastName: string
 
   public constructor(data: BaseUserPresenter) {

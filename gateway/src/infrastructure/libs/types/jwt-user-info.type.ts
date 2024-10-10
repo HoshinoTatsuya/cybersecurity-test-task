@@ -1,11 +1,6 @@
-import { Role } from '@libs/shared/common/enums'
+import { Role } from '../../../domain/enums'
 
 export type JwtUserInfoType = {
   userId: string
-  sessionId: string
-  dataCache: DataCacheType
-}
-
-type DataCacheType = {
   role: Role
 }

@@ -1,5 +1,0 @@
-export * from './email-recovery.type'
-export * from './password-recovery.type'
-export * from './phone-recovery.type'
-export * from './user-registration.type'
-export * from './user-registration-with-generate-creds.type'

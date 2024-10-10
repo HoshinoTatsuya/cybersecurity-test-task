@@ -1,5 +1,3 @@
-import { SortPaginationPayload } from '../../../../infrastructure/libs/payloads'
+import { SortPaginationDto } from '../../../common/sort-pagination.dto'
 
-export class GetAllMyCommentsDto extends SortPaginationPayload {
-  public userId: string
-}
+export class GetAllMyCommentsDto extends SortPaginationDto {}

@@ -1,6 +1,6 @@
-import { AuthenticationExceptionEnum } from '@libs/shared/common/exceptions'
-import { authenticationExceptionEn } from '@libs/shared/common/exceptions/translations'
-import { badResponseSchemaFactory } from '@libs/shared/common/factories/bad-response-schema.factory'
+import { AuthenticationExceptionEnum } from '../enums/authentication-exception.enum'
+import { badResponseSchemaFactory } from '../factories/bad-response-schema.factory'
+import { authenticationExceptionEn } from '../translations/en/authentication.exception'
 
 export const authenticationSchemas = {
   [AuthenticationExceptionEnum.CODE_NOT_FOUND]: badResponseSchemaFactory(authenticationExceptionEn.CODE_NOT_FOUND),
@@ -83,31 +83,5 @@ export const authenticationSchemas = {
   ),
   [AuthenticationExceptionEnum.SESSION_IS_CURRENT]: badResponseSchemaFactory(
     authenticationExceptionEn.SESSION_IS_CURRENT,
-  ),
-
-  // GREEN API
-  [AuthenticationExceptionEnum.AUTHORIZATION_DECLINED]: badResponseSchemaFactory(
-    authenticationExceptionEn.AUTHORIZATION_DECLINED,
-  ),
-  [AuthenticationExceptionEnum.AUTHORIZATION_INTERNAL_SERVER_ERROR]: badResponseSchemaFactory(
-    authenticationExceptionEn.AUTHORIZATION_INTERNAL_SERVER_ERROR,
-  ),
-  [AuthenticationExceptionEnum.PHONE_INSUFFICIENT_FUNDS]: badResponseSchemaFactory(
-    authenticationExceptionEn.PHONE_INSUFFICIENT_FUNDS,
-  ),
-  [AuthenticationExceptionEnum.PHONE_PARAMETER_MUST_BE_SET]: badResponseSchemaFactory(
-    authenticationExceptionEn.PHONE_PARAMETER_MUST_BE_SET,
-  ),
-  [AuthenticationExceptionEnum.PHONE_UNSUPPORTED_PARAMETER_VALUE]: badResponseSchemaFactory(
-    authenticationExceptionEn.PHONE_UNSUPPORTED_PARAMETER_VALUE,
-  ),
-  [AuthenticationExceptionEnum.PHONE_ACCOUNT_ACTIVATION_NEEDED]: badResponseSchemaFactory(
-    authenticationExceptionEn.PHONE_ACCOUNT_ACTIVATION_NEEDED,
-  ),
-  [AuthenticationExceptionEnum.PHONE_LIMIT_FOR_NUMBER_EXCEEDED]: badResponseSchemaFactory(
-    authenticationExceptionEn.PHONE_LIMIT_FOR_NUMBER_EXCEEDED,
-  ),
-  [AuthenticationExceptionEnum.PHONE_INTERNAL_SERVER_ERROR]: badResponseSchemaFactory(
-    authenticationExceptionEn.PHONE_INTERNAL_SERVER_ERROR,
   ),
 }

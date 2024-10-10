@@ -12,6 +12,7 @@ export const externalRoutes = {
   },
   methods: {
     health: {},
+    auth: { login: 'login' },
     users: {
       createUser: 'createUser',
       uploadAvatar: 'uploadAvatar',

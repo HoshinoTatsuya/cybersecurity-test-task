@@ -12,6 +12,7 @@ export const route = {
     nameService: 'users',
     methods: {
       login: 'login',
+      verifyToken: 'verifyToken',
     },
   },
 }

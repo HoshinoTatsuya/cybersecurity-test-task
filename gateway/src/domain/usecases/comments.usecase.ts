@@ -26,13 +26,53 @@ export class CommentsUsecase implements IComments {
     private readonly _commentsService: IMsCommentsService,
   ) {}
 
-  public async createComment(data: ICreateComment): Promise<CreateCommentModel | BaseException> {}
+  public async createComment(data: ICreateComment): Promise<CreateCommentModel | BaseException> {
+    const result = await this._commentsService.comments.createComment(data)
 
-  public async updateComment(data: IUpdateComment): Promise<UpdateCommentModel | BaseException> {}
+    if (result instanceof BaseException) {
+      return result
+    }
 
-  public async deleteComment(data: IDeleteComment): Promise<DeleteCommentModel | BaseException> {}
+    return new CreateCommentModel(result)
+  }
 
-  public async getAllMyComments(data: IGetAllMyComments): Promise<GetAllMyCommentsModel | BaseException> {}
+  public async updateComment(data: IUpdateComment): Promise<UpdateCommentModel | BaseException> {
+    const result = await this._commentsService.comments.updateComment(data)
 
-  public async getAllCommentsByUser(data: IGetAllCommentsByUser): Promise<GetAllCommentsByUserModel | BaseException> {}
+    if (result instanceof BaseException) {
+      return result
+    }
+
+    return new UpdateCommentModel(result)
+  }
+
+  public async deleteComment(data: IDeleteComment): Promise<DeleteCommentModel | BaseException> {
+    const result = await this._commentsService.comments.deleteComment(data)
+
+    if (result instanceof BaseException) {
+      return result
+    }
+
+    return new DeleteCommentModel(result)
+  }
+
+  public async getAllMyComments(data: IGetAllMyComments): Promise<GetAllMyCommentsModel | BaseException> {
+    const result = await this._commentsService.comments.getAllMyComments(data)
+
+    if (result instanceof BaseException) {
+      return result
+    }
+
+    return new GetAllMyCommentsModel(result)
+  }
+
+  public async getAllCommentsByUser(data: IGetAllCommentsByUser): Promise<GetAllCommentsByUserModel | BaseException> {
+    const result = await this._commentsService.comments.getAllCommentsByUser(data)
+
+    if (result instanceof BaseException) {
+      return result
+    }
+
+    return new GetAllCommentsByUserModel(result)
+  }
 }

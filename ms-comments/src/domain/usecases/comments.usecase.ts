@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { automaticDeletionDate } from '../constants'
 
 import { BaseException } from '../exceptions'
 import { IComments } from '../interfaces/comments'
@@ -23,7 +24,16 @@ export class CommentsUsecase implements IComments {
   public constructor(private readonly _commentsRepository: ICommentsRepository) {}
 
   public async createComment(data: ICreateComment): Promise<CreateCommentModel | BaseException> {
-    const result = await this._commentsRepository.createComment(data)
+    let commentDeletionDate = undefined
+
+    if (data.automaticDeletionDate) {
+      commentDeletionDate = automaticDeletionDate[data.automaticDeletionDate]
+    }
+    const result = await this._commentsRepository.createComment({
+      text: data.text,
+      userId: data.userId,
+      automaticDeletionDate: commentDeletionDate,
+    })
 
     if (result instanceof BaseException) {
       return result

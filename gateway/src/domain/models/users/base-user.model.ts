@@ -1,3 +1,5 @@
+import { Role } from '../../enums'
+
 import { BaseModel } from './base.model'
 
 export class BaseUserModel extends BaseModel {
@@ -5,6 +7,7 @@ export class BaseUserModel extends BaseModel {
   public email: string
   public name: string
   public lastName: string
+  public role: Role
 
   public constructor(data: BaseUserModel) {
     super(data)
@@ -12,5 +15,6 @@ export class BaseUserModel extends BaseModel {
     this.email = data.email
     this.name = data.name
     this.lastName = data.lastName
+    this.role = data.role
   }
 }

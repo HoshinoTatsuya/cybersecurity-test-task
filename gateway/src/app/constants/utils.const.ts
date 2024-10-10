@@ -1,3 +1,3 @@
-import { Role } from '@libs/shared/common/enums'
+import { Role } from '../../domain/enums'
 
-export const allRoles = [Role.DRIVER, Role.COMPANY, Role.SUPPLIER]
+export const allRoles = [Role.SIMPLE, Role.ADMIN]

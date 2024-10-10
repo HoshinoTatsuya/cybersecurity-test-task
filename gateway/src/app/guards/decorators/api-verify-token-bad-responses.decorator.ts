@@ -1,6 +1,7 @@
-import { BaseException } from '@libs/shared/common/exceptions'
 import { applyDecorators } from '@nestjs/common'
 import { ApiResponse } from '@nestjs/swagger'
+
+import { BaseException } from '../../../domain/exceptions'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function ApiVerifyTokenBadResponses(): MethodDecorator {

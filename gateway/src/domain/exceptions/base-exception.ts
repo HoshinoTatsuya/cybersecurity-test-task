@@ -1,13 +1,16 @@
 import { BadRequestException, Logger } from '@nestjs/common'
 import { ApiResponseOptions } from '@nestjs/swagger'
 
+import { authenticationExceptions } from './constants/authentication.constant'
 import { commentsExceptions } from './constants/comments.constant'
 import { commonExceptions } from './constants/common.constant'
 import { usersExceptions } from './constants/users.constant'
 import { validationExceptions } from './constants/validation.constant'
 import { CommentsExceptionEnum, CommonExceptionEnum, UsersExceptionEnum } from './enums'
+import { AuthenticationExceptionEnum } from './enums/authentication-exception.enum'
 import { SupportLanguageEnum } from './enums/support-language.enum'
 import { commentsSchemas, commonSchemas, usersSchemas } from './swagger-schemas'
+import { authenticationSchemas } from './swagger-schemas/authentication.schema'
 import {
   CommonLanguagesExceptionType,
   ErrorSubstitutionType,
@@ -16,6 +19,7 @@ import {
   TranslationCustomExceptionType,
   ValidationLanguagesExceptionType,
 } from './types'
+import { AuthenticationLanguagesExceptionType } from './types/authentication'
 import { CommentsLanguagesExceptionType } from './types/comments'
 import { UsersLanguagesExceptionType } from './types/users'
 
@@ -37,6 +41,14 @@ export class BaseException extends Error {
     this.errorName = params?.errorName
 
     this._logError({ ...params, logger })
+  }
+
+  public static get authentication(): AuthenticationLanguagesExceptionType {
+    return authenticationExceptions
+  }
+
+  public static get authenticationSchema(): Record<AuthenticationExceptionEnum, ApiResponseOptions> {
+    return authenticationSchemas
   }
 
   public static get users(): UsersLanguagesExceptionType {

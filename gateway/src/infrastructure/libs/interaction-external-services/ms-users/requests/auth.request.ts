@@ -7,6 +7,8 @@ import { IMsUsersModuleOptionsFactory } from '../ms-users.interface'
 
 import { route } from './constants'
 import { ILogin } from './interfaces/auth'
+import { IVerifyToken } from './interfaces/users'
+import { VerifyTokenModel } from './models'
 import { LoginModel } from './models/auth'
 
 @Injectable()
@@ -21,7 +23,7 @@ export class AuthRequest extends BaseRequestsService {
     this._msUsersConfig = msUsersConfigService
   }
 
-  public async login(payload: ILogin): Promise<LoginModel> {
+  public async login(payload: ILogin): Promise<LoginModel | BaseException> {
     try {
       const result = await this.natsRequestWithResponse<LoginModel, ILogin>({
         serviceName: route.auth.nameService,
@@ -33,7 +35,25 @@ export class AuthRequest extends BaseRequestsService {
         return result
       }
 
-      return new LoginModel()
+      return new LoginModel(result)
+    } catch (error) {
+      return new BaseException().errorSubstitution({ error })
+    }
+  }
+
+  public async verifyToken(payload: IVerifyToken): Promise<VerifyTokenModel | BaseException> {
+    try {
+      const result = await this.natsRequestWithResponse<VerifyTokenModel, IVerifyToken>({
+        serviceName: route.auth.nameService,
+        method: route.auth.methods.verifyToken,
+        payload,
+      })
+
+      if (result instanceof BaseException) {
+        return result
+      }
+
+      return new VerifyTokenModel(result)
     } catch (error) {
       return new BaseException().errorSubstitution({ error })
     }

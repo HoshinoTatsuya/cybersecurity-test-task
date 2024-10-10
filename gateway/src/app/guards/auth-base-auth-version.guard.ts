@@ -1,12 +1,13 @@
-import { BaseException } from '@libs/shared/common/exceptions'
-import { getShadowData } from '@libs/shared/common/shadow-agent/shadow-agent'
 import { BadRequestException, CanActivate, ExecutionContext, Inject } from '@nestjs/common'
 import { Request } from 'express'
 
-import { AuthBaseService } from '../authBase/auth-base.service'
+import { BaseException } from '../../domain/exceptions'
+import { IUsers } from '../../domain/interfaces/users'
+import { getShadowData } from '../../infrastructure/libs/shadow-agent/shadow-agent'
+import { USERS_USECASE } from '../providers/users.provider'
 
 export class AuthBaseAuthVersionGuard implements CanActivate {
-  public constructor(@Inject(AuthBaseService) private _authBaseService: AuthBaseService) {}
+  public constructor(@Inject(USERS_USECASE) private readonly _usersUsecase: IUsers) {}
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>()
@@ -28,9 +29,7 @@ export class AuthBaseAuthVersionGuard implements CanActivate {
       token = token.split('Bearer ')[1]
     }
 
-    // TODO: Проверка на составленный хеш с клиента, через обращение в наследованный для этого класс!
-    //  А также там делать проверку на существование самого хеша!
-    const result = await this._authBaseService.verifyToken({ accessToken: token, shadowData })
+    const result = await this._usersUsecase.verifyToken({ accessToken: token })
 
     if (result instanceof BaseException) {
       throw BaseException.createError(result, shadowData.userLanguage)

@@ -126,7 +126,8 @@ export class CommentsRepository implements ICommentsRepository {
 
       const comments = await this._commentsRepository
         .createQueryBuilder(CommentsEntity.tableName)
-        .where('UNIX_TIMESTAMP(:currentTime) - UNIX_TIMESTAMP(comment.createdDate) >= comment.autoDeleteAfter', {
+        .andWhere(`${fields.automaticDeletionDate} is not null`)
+        .andWhere('UNIX_TIMESTAMP(:currentTime) - UNIX_TIMESTAMP(comment.createdDate) >= comment.autoDeleteAfter', {
           currentTime,
         })
         .select(fields.id)
