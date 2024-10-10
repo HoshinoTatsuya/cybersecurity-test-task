@@ -35,7 +35,6 @@ export class CommentsController {
     type: CreateCommentDto,
   })
   @ApiCreatedResponse({ type: CreateCommentPresenter })
-  //  @ApiResponse(BaseException.categorySchema.SLUG_ALREADY_EXIST)
   @BaseApiErrorResponse()
   public async createComment(@Body() data: CreateCommentDto): Promise<CreateCommentPresenter | BaseException> {
     const result = await this._commentsUsecase.createComment(data)
