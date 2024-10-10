@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+            rel="stylesheet"
+    />
+</head>
+<body style="margin: 0; padding: 0">
+<table
+        width="100%"
+        height="100%"
+        bgcolor="#F2F5F8"
+        style="font-family: 'Inter', sans-serif"
+        align="center"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+>
+    <tr>
+        <td>
+            <table
+                    align="center"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    style="max-width: 576px; width: 100%"
+            >
+                <tr>
+                    <td>
+                        <table
+                                align="center"
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                width="100%"
+                                style="padding: 40px 32px 40px 32px"
+                        >
+                            <tr>
+                                <td align="center" style="padding: 0 0 24px 0">
+                                    <img
+                                            src="<%= locals.mainLogo %>"
+                                            alt="logo"
+                                            width="235"
+                                            height="40"
+                                            border="0"
+                                            style="display: block"
+                                    />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table
+                                align="center"
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                width="100%"
+                                bgcolor="#fff"
+                                style="padding: 32px 32px 32px 32px; border-radius: 24px"
+                        >
+                            <tr>
+                                <td
+                                        style="
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #333;
+                        text-align: center;
+                        padding: 0 40px 16px 40px;
+                      "
+                                >
+                                    <%= locals.mainText %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                        style="
+                        font-size: 14px;
+                        font-weight: 700;
+                        color: #333;
+                        text-align: center;
+                        padding: 0 0 16px 0;
+                      "
+                                >
+                                    <%= locals.textForCode %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                        style="
+                        font-size: 52px;
+                        letter-spacing: 20px;
+                        font-family: 'Inter', sans-serif;
+                        font-weight: 600;
+                        text-align: center;
+                      "
+                                >
+                                    <%= locals.code %>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table
+                                align="center"
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                width="100%"
+                                style="padding: 32px 32px 0px 32px"
+                        >
+                            <tr>
+                                <td
+                                        style="
+                        font-size: 24px;
+                        text-align: center;
+                        padding: 0 0 16px 0;
+                      "
+                                >
+                                    <%= locals.messageSignature %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                        style="
+                        color: #666;
+                        text-align: center;
+                        padding: 0 0 16px 0;
+                      "
+                                >
+                                    <%= locals.textInstallApplicationOnMobile %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <table
+                                        align="center"
+                                        border="0"
+                                        cellpadding="0"
+                                        cellspacing="0"
+                                        width="320px"
+                                >
+                                    <td>
+                                        <a href="#" style="display: block">
+                                            <img
+                                                    src="<%= locals.appStoreLogo %>"
+                                                    border="0"
+                                                    style="display: block; padding: 0 24px 0 0"
+                                                    width="140"
+                                                    height="46"
+                                                    alt="app-store"
+                                            />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" style="display: block">
+                                            <img
+                                                    src="<%= locals.googlePlayLogo %>"
+                                                    border="0"
+                                                    style="display: block"
+                                                    width="156"
+                                                    height="46"
+                                                    alt="google-play"
+                                            />
+                                        </a>
+                                    </td>
+                                </table>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div
+                                style="
+                    padding: 32px 32px 32px 32px;
+                    text-align: center;
+                    font-family: 'Inter';
+                    font-size: 14px;
+                    color: #999;
+                  "
+                        >
+                            <%= locals.endTextMessage %>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

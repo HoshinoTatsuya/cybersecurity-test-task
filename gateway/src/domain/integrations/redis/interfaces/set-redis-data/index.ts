@@ -1,0 +1,5 @@
+export * from './email-recovery/index'
+export * from './password-recovery/index'
+export * from './phone-recovery/index'
+export * from './registration/set-redis-registration-data.input.interface'
+export * from './tokens/set-redis-tokens-data.input.interface'

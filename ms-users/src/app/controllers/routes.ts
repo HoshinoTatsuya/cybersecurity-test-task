@@ -14,5 +14,9 @@ export const internalsRoutes = {
       confirmAvatar: 'confirmAvatar',
       getInfoAboutMe: 'getInfoAboutMe',
     },
+    auth: {
+      verifyToken: 'verifyToken',
+      login: 'login',
+    },
   },
 }

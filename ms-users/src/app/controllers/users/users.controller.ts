@@ -6,8 +6,8 @@ import { CustomMessagePattern } from '../../../infrastructure/libs/nats/custom-d
 import { USERS_USECASE } from '../../providers/users.provider'
 import { internalsRoutes } from '../routes'
 
-import { CreateUserDto, GetInfoAboutMeDto } from './dtos'
-import { CreateUserPresenter, GetInfoAboutMePresenter } from './presenters'
+import { CreateUserDto, GetInfoAboutMeDto, LoginDto, VerifyTokenDto } from './dtos'
+import { CreateUserPresenter, GetInfoAboutMePresenter, LoginPresenter, VerifyTokenPresenter } from './presenters'
 
 @Controller()
 export class UsersController {
@@ -23,6 +23,18 @@ export class UsersController {
     }
 
     return new CreateUserPresenter(result)
+  }
+
+  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.auth.login)
+  @UseInterceptors(ClassSerializerInterceptor)
+  public async login(data: LoginDto): Promise<LoginPresenter | BaseException> {
+    const result = await this._usersUsecase.login(data)
+
+    if (result instanceof BaseException) {
+      return result
+    }
+
+    return new LoginPresenter(result)
   }
 
   //  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.users.uploadAvatar)
@@ -59,5 +71,17 @@ export class UsersController {
     }
 
     return new GetInfoAboutMePresenter(result)
+  }
+
+  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.auth.verifyToken)
+  @UseInterceptors(ClassSerializerInterceptor)
+  public async verifyToken(data: VerifyTokenDto): Promise<VerifyTokenPresenter | BaseException> {
+    const result = await this._usersUsecase.verifyToken(data)
+
+    if (result instanceof BaseException) {
+      return result
+    }
+
+    return new VerifyTokenPresenter(result)
   }
 }

@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Role } from '../../../domain/enums'
 
 import { BaseEntity } from '../base/base.entity'
 
@@ -13,6 +14,8 @@ export class UsersEntity extends BaseEntity {
     name: 'name',
     lastName: 'lastName',
     password: 'password',
+    role: 'role',
+    refreshToken: 'refreshToken',
   }
 
   @PrimaryGeneratedColumn('uuid')
@@ -32,6 +35,20 @@ export class UsersEntity extends BaseEntity {
   public lastName: string
 
   @Column({
+    name: 'role',
+    type: 'enum',
+    nullable: false,
+  })
+  public role: Role
+
+  @Column({
+    name: 'refresh_token',
+    type: 'varchar',
+    nullable: true,
+  })
+  public refreshToken: string
+
+  @Column({
     name: 'password',
     type: 'varchar',
     nullable: false,
@@ -46,6 +63,8 @@ export class UsersEntity extends BaseEntity {
       name: `${alias}.${UsersEntity._fields.name}`,
       lastName: `${alias}.${UsersEntity._fields.lastName}`,
       password: `${alias}.${UsersEntity._fields.password}`,
+      role: `${alias}.${UsersEntity._fields.role}`,
+      refreshToken: `${alias}.${UsersEntity._fields.refreshToken}`,
     }
   }
 }

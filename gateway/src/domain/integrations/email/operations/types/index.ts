@@ -1,0 +1,5 @@
+export * from './mail-constant-operations.type'
+export * from './mail-constant-text-operations.type'
+export * from './mail-operations.type'
+export * from './mail-text-operations.type'
+export * from './text-structures/index'
