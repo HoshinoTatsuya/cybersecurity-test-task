@@ -1,9 +1,9 @@
-import { Role } from '@libs/shared/common/enums'
-import { BaseException } from '@libs/shared/common/exceptions'
-import { ValidateUtils } from '@libs/shared/common/utils/validate.utils'
 import { createParamDecorator, ExecutionContext, UnauthorizedException } from '@nestjs/common'
 
-import { allRoles } from '../../common/constants'
+import { Role } from '../../../domain/enums'
+import { BaseException } from '../../../domain/exceptions'
+import { ValidateUtils } from '../../../infrastructure/libs/utils/validate.utils'
+import { allRoles } from '../../constants/utils.const'
 
 export const CurrentUser = createParamDecorator(
   // eslint-disable-next-line @typescript-eslint/default-param-last

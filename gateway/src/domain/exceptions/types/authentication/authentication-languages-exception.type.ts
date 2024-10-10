@@ -1,4 +1,5 @@
-import { LanguagesEnum } from '@libs/shared/common/enums/languages.enum'
-import { AuthenticationExceptionType } from '@libs/shared/common/exceptions'
+import { SupportLanguageEnum } from '../../enums/support-language.enum'
 
-export type AuthenticationLanguagesExceptionType = Record<keyof typeof LanguagesEnum, AuthenticationExceptionType>
+import { AuthenticationExceptionType } from './authentication-exception.type'
+
+export type AuthenticationLanguagesExceptionType = Record<keyof typeof SupportLanguageEnum, AuthenticationExceptionType>

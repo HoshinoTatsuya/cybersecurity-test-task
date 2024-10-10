@@ -1,6 +1,7 @@
-import { SwaggerModuleAsyncOptions } from '@libs/shared/common/swagger/interface-inject/swagger.interface'
 import { DynamicModule, Module } from '@nestjs/common'
 import { ClientsModule } from '@nestjs/microservices'
+
+import { SwaggerModuleAsyncOptions } from './interface-inject/swagger.interface'
 
 @Module({})
 export class SwaggerModule {

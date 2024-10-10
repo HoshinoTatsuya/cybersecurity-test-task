@@ -29,8 +29,8 @@ dev-setup:
 dev-common:
 	docker-compose -f docker-compose.yml --env-file ${ENV_FILE_PATH} up -d db
 
-dev-ms-category: dev-common
-	docker-compose -f docker-compose.yml up ms-category
+dev-ms-comments: dev-common
+	docker-compose -f docker-compose.yml up ms-comments
 
 dev: setup-network dev-common
 	docker-compose -f docker-compose.yml --env-file ${ENV_FILE_PATH} up -d

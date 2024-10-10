@@ -12,10 +12,10 @@ export class MsCommentsConfig implements MsCommentsModuleOptionsFactory {
 
   public createMsCommentsOptions(): MsCommentsModuleOptions {
     return {
-      serviceName: this._configService.get<string>('DCBANK_HOST'),
+      serviceName: this._configService.get<string>('MS_COMMENTS_NAME'),
       logger: {
-        axios: this._configService.get<boolean>('DCBANK_CLIENT_ID'),
-        nats: this._configService.get<boolean>('DCBANK_CLIENT_ID'),
+        axios: this._configService.get<boolean>('MS_COMMENTS_LOG_AXIOS'),
+        nats: this._configService.get<boolean>('MS_COMMENTS_LOG_NATS'),
       },
     }
   }

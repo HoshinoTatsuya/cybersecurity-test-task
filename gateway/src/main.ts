@@ -40,7 +40,7 @@ async function bootstrap(): Promise<void> {
     },
   })
 
-  await app.listen(configService.get<number>('MICROSERVICES_GATEWAY_PORT'))
+  await app.listen(+configService.get<number>('MICROSERVICES_GATEWAY_PORT'))
 }
 
 void bootstrap()

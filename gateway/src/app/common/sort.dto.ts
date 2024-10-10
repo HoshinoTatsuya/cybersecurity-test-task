@@ -1,6 +1,7 @@
-import { SortOrderEnum } from '@libs/shared/common/enums'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsEnum, IsOptional } from 'class-validator'
+
+import { SortOrderEnum } from '../../infrastructure/libs/enums/sort-order.enum'
 
 export class SortDto {
   @IsEnum(SortOrderEnum)

@@ -1,8 +1,9 @@
-import { SwaggerModuleOptions } from '@libs/shared/common/swagger/interface-inject/swagger.interface'
-import { BooleanUtils } from '@libs/shared/common/utils/boolean.utils'
 import { Injectable, InternalServerErrorException } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { SecuritySchemeType } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface'
+
+import { BooleanUtils } from '../../utils/boolean.utils'
+import { SwaggerModuleOptions } from '../interface-inject/swagger.interface'
 
 @Injectable()
 export class SwaggerConfigService {

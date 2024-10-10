@@ -29,23 +29,23 @@ export class JWTConfigService implements JWTCustomModuleOptionsFactory {
 
     if (jwtConfig.secret === undefined) {
       // TODO: Светить предупреждение, если нет секрета => переход на новую версию по дефолту
-      throw new InternalServerErrorException('Gateway variable "secret" in "ms-core" config is not found')
+      throw new InternalServerErrorException('Variable "secret" in "ms-core" config is not found')
     }
 
     if (jwtConfig.accessTokenExpire === undefined) {
-      throw new InternalServerErrorException('Gateway variable "accessTokenExpire" in "ms-core" config is not found')
+      throw new InternalServerErrorException('Variable "accessTokenExpire" in "ms-core" config is not found')
     }
 
     if (jwtConfig.refreshTokenExpire === undefined) {
-      throw new InternalServerErrorException('Gateway variable "refreshTokenExpire" in "ms-core" config is not found')
+      throw new InternalServerErrorException('Variable "refreshTokenExpire" in "ms-core" config is not found')
     }
 
     if (jwtConfig.logger.axios === undefined) {
-      throw new InternalServerErrorException('Gateway variable "logger axios" in "ms-core" config is not found')
+      throw new InternalServerErrorException('Variable "logger axios" in "ms-core" config is not found')
     }
 
     if (jwtConfig.logger.nats === undefined) {
-      throw new InternalServerErrorException('Gateway variable "logger nats" in "ms-core" config is not found')
+      throw new InternalServerErrorException('Variable "logger nats" in "ms-core" config is not found')
     }
 
     return jwtConfig

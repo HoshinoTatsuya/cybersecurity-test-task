@@ -1,6 +1,7 @@
-import { LanguagesEnum } from '@libs/shared/common/enums/languages.enum'
 import { Lookup } from 'geoip-lite'
 import { IResult } from 'ua-parser-js'
+
+import { SupportLanguageEnum } from '../../../../domain/exceptions/enums/support-language.enum'
 
 /**
  * @class GetShadowAgentModel
@@ -47,7 +48,7 @@ export class GetShadowAgentModel {
    * @description Language on user client
    * @example "RU"
    */
-  public userLanguage?: LanguagesEnum
+  public userLanguage?: SupportLanguageEnum
 
   /**
    * @description Client user application

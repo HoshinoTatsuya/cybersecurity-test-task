@@ -1,13 +1,14 @@
 import { IncomingHttpHeaders } from 'http'
 
-import { LanguagesEnum } from '@libs/shared/common/enums/languages.enum'
-import { GetShadowAgentModel } from '@libs/shared/common/shadow-agent/models'
 import { getClientIp } from '@supercharge/request-ip'
 import { Request } from 'express'
 import { Lookup, lookup } from 'geoip-lite'
 // eslint-disable-next-line import/no-unresolved
-import { Socket } from 'socket.io'
 import { IResult, UAParser as UserAgentParser } from 'ua-parser-js'
+
+import { SupportLanguageEnum } from '../../../domain/exceptions/enums/support-language.enum'
+
+import { GetShadowAgentModel } from './models'
 
 function convertHeadersKeysToLowerCase(obj: IncomingHttpHeaders): IncomingHttpHeaders {
   return Object.keys(obj).reduce((acc, key) => {
@@ -16,14 +17,14 @@ function convertHeadersKeysToLowerCase(obj: IncomingHttpHeaders): IncomingHttpHe
   }, {})
 }
 
-function getLanguageEnum(language: string): LanguagesEnum {
+function getLanguageEnum(language: string): SupportLanguageEnum {
   switch (language) {
     case 'RU':
-      return LanguagesEnum.RU
+      return SupportLanguageEnum.RU
     case 'EN':
-      return LanguagesEnum.EN
+      return SupportLanguageEnum.EN
     default:
-      return LanguagesEnum.EN
+      return SupportLanguageEnum.EN
   }
 }
 
@@ -117,7 +118,7 @@ function getUserAgent(data: Request): IResult {
  *
  * @example 'RU'
  */
-export function getUserLanguage(data: Request): LanguagesEnum {
+export function getUserLanguage(data: Request): SupportLanguageEnum {
   const headers = data.headers
 
   const headersKeysToLowerCase = convertHeadersKeysToLowerCase(headers)
@@ -130,23 +131,7 @@ export function getUserLanguage(data: Request): LanguagesEnum {
     return getLanguageEnum(userLanguage.split('-')[1])
   }
 
-  return LanguagesEnum.EN
-}
-
-export function getUserLanguageWs(data: Socket): LanguagesEnum {
-  const headers = data.handshake.headers
-
-  const headersKeysToLowerCase = convertHeadersKeysToLowerCase(headers)
-
-  const userLanguageData: string | undefined = headersKeysToLowerCase['accept-language']
-
-  if (userLanguageData && userLanguageData.length != 0) {
-    const userLanguage = userLanguageData.split(',')[0]
-
-    return getLanguageEnum(userLanguage.split('-')[1])
-  }
-
-  return LanguagesEnum.EN
+  return SupportLanguageEnum.EN
 }
 
 /**
