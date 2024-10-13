@@ -16,7 +16,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
     working_dir: /workspace
-    command: /bin/sh -c "yarn install && yarn start:dev"
+    command: /bin/sh -c "yarn install --unsafe-perm && yarn start:dev"
     networks:
       - api-network
 

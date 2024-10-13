@@ -12,7 +12,7 @@ services:
       - ./:/workspace
       - backend_nm:/workspace/node_modules
     working_dir: /workspace
-    command: /bin/sh -c "yarn install && yarn start:dev ms-comments"
+    command: /bin/sh -c "yarn install --unsafe-perm && yarn start:dev ms-comments"
     networks:
       - api-network
 

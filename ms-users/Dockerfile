@@ -4,7 +4,7 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 COPY . .
-RUN yarn install
+RUN yarn install --unsafe-perm
 RUN nest build
 
 FROM node:20-alpine
