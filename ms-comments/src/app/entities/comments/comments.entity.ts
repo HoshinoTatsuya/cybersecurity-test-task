@@ -15,7 +15,7 @@ export class CommentsEntity extends BaseEntity {
     automaticDeletionDate: 'automaticDeletionDate',
   }
 
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('uuid', { name: 'id' })
   public id: string
 
   @Column({ name: 'user_id', type: 'uuid', nullable: false, unique: false })

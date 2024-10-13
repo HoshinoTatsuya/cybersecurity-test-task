@@ -49,13 +49,13 @@ export class CommentsUsecase implements IComments {
       return comment
     }
 
-    const resultOperation = await this._commentsRepository.updateComment(data)
+    const resultOperation = await this._commentsRepository.updateComment({ commentId: comment.id, text: data.text })
 
     if (resultOperation instanceof BaseException) {
       return resultOperation
     }
 
-    if (resultOperation.result) {
+    if (!resultOperation.result) {
       return new BaseException(BaseException.comments.EN.FAILED_TO_UPDATE_COMMENT)
     }
 
@@ -69,13 +69,17 @@ export class CommentsUsecase implements IComments {
       return comment
     }
 
+    if (comment.userId !== data.userId) {
+      return new BaseException(BaseException.comments.EN.COMMENTS_IS_NOT_FOUND)
+    }
+
     const resultOperation = await this._commentsRepository.deleteComment(data)
 
     if (resultOperation instanceof BaseException) {
       return resultOperation
     }
 
-    if (resultOperation.result) {
+    if (!resultOperation.result) {
       return new BaseException(BaseException.comments.EN.FAILED_TO_UPDATE_COMMENT)
     }
 

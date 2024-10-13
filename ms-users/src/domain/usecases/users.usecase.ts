@@ -17,7 +17,9 @@ export class UsersUsecase implements IUsers {
   ) {}
 
   public async createUser(data: ICreateUser): Promise<CreateUserModel | BaseException> {
-    const result = await this._usersRepository.createUser(data)
+    const hashPassword = await EncryptionService.hashPassword(data.password)
+
+    const result = await this._usersRepository.createUser({ ...data, password: hashPassword })
 
     if (result instanceof BaseException) {
       return result
@@ -99,6 +101,6 @@ export class UsersUsecase implements IUsers {
       return result
     }
 
-    return new VerifyTokenModel({ userId: dataAccessToken.userId, role: dataAccessToken as unknown as Role })
+    return new VerifyTokenModel({ userId: dataAccessToken.userId, role: dataAccessToken.role as Role })
   }
 }

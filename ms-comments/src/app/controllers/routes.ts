@@ -1,6 +1,6 @@
 export const internalsRoutes = {
   msInfo: {
-    msName: 'ms-comments',
+    msName: 'comments',
     prefixes: {
       comments: 'comments',
     },

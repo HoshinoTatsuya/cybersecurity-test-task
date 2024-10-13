@@ -28,7 +28,7 @@ export class UsersRepository implements IUsersRepository {
 
   public async createUser(data: ICreateUser): Promise<CreateUserModel | BaseException> {
     try {
-      const result = await this._usersRepository.save(data)
+      const result = await this._usersRepository.save({ ...data })
 
       return new CreateUserModel(result)
     } catch (error) {

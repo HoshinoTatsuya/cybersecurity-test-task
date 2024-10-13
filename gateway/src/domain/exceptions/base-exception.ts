@@ -83,10 +83,14 @@ export class BaseException extends Error {
     return {
       [SupportLanguageEnum.RU]: {
         ...usersExceptions.RU,
+        ...authenticationExceptions.RU,
+        ...commentsExceptions.RU,
         ...commonExceptions.RU,
       },
       [SupportLanguageEnum.EN]: {
         ...usersExceptions.EN,
+        ...authenticationExceptions.EN,
+        ...commentsExceptions.EN,
         ...commonExceptions.EN,
       },
     }

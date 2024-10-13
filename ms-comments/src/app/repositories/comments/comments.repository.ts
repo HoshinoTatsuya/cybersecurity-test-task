@@ -31,6 +31,7 @@ export class CommentsRepository implements ICommentsRepository {
 
   public async createComment(data: ICreateComment): Promise<CreateCommentModel | BaseException> {
     try {
+      console.log(data)
       const result = await this._commentsRepository.save(data)
 
       return new CreateCommentModel(result)
@@ -46,8 +47,7 @@ export class CommentsRepository implements ICommentsRepository {
       const result = await this._commentsRepository
         .createQueryBuilder(CommentsEntity.tableName)
         .andWhere(`${fields.id} = :commentId`, { commentId: data.commentId })
-        .andWhere(`${fields.userId} = :userId`, { userId: data.userId })
-        .update({ text: fields.text })
+        .update({ text: data.text })
         .execute()
 
       return new UpdateCommentModel({ result: result.affected > 0 })
@@ -63,7 +63,6 @@ export class CommentsRepository implements ICommentsRepository {
       const result = await this._commentsRepository
         .createQueryBuilder(CommentsEntity.tableName)
         .andWhere(`${fields.id} = :commentId`, { commentId: data.commentId })
-        .andWhere(`${fields.userId} = :userId`, { userId: data.userId })
         .softDelete()
         .execute()
 

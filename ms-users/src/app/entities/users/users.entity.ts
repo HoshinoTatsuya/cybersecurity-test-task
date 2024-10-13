@@ -18,13 +18,13 @@ export class UsersEntity extends BaseEntity {
     refreshToken: 'refreshToken',
   }
 
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('uuid', { name: 'id' })
   public id: string
 
-  @Column({ name: 'user_id', type: 'uuid', nullable: false, unique: false })
+  @Column({ name: 'user_id', type: 'varchar', nullable: false, unique: false })
   public email: string
 
-  @Column({ name: 'text', type: 'varchar', nullable: false })
+  @Column({ name: 'name', type: 'varchar', nullable: false })
   public name: string
 
   @Column({
@@ -37,6 +37,7 @@ export class UsersEntity extends BaseEntity {
   @Column({
     name: 'role',
     type: 'enum',
+    enum: Role,
     nullable: false,
   })
   public role: Role

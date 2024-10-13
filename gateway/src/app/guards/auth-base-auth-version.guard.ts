@@ -13,6 +13,7 @@ export class AuthBaseAuthVersionGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>()
     const shadowData = getShadowData(request)
     let token = request.headers['authorization']
+
     if (!token || token?.length === 0) {
       const tokenIsMissingInHeadersError =
         BaseException.authentication[shadowData.userLanguage].TOKEN_IS_MISSING_IN_HEADERS

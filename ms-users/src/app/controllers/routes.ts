@@ -1,6 +1,6 @@
 export const internalsRoutes = {
   msInfo: {
-    msName: 'ms-users',
+    msName: 'users',
     prefixes: {
       users: 'users',
     },

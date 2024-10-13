@@ -13,7 +13,7 @@ async function bootstrap(): Promise<void> {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, natsClientConfig)
 
   await app.listen()
-  Logger.log(`Service [MS-ELECTRONIC-QUEUE] is running!`)
+  Logger.log(`Service [MS-USERS] is running!`)
 }
 
 void bootstrap()

@@ -15,7 +15,7 @@ export const CurrentUser = createParamDecorator(
     }
 
     const isValidRole = ValidateUtils.isValidRole({
-      currentRole: res.user.dataCache.role,
+      currentRole: res.user.role,
       validRoles,
     })
 
