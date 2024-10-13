@@ -12,7 +12,10 @@ help:
 	@echo "prune                 			# clear all unusable data (prune unusable containers, images amd volumes)"
 
 install:
-	(yarn install) & wait
+	(yarn install --unsafe-perm) & wait
+
+build:
+	(yarn build) & wait
 
 setup-docker:
 	curl -fsSL https://get.docker.com | sh

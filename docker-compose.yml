@@ -2,6 +2,21 @@
 version: '3'
 
 services:
+  nats:
+    image: nats:alpine
+    container_name: nats
+    restart: unless-stopped
+    environment:
+      ENV: development
+      NATS_PORT: ${NATS_PORT}
+    ports:
+      - ${NATS_PORT}:${NATS_OPEN_PORT}
+      - ${NATS_PORT1}:${NATS_OPEN_PORT1}
+    volumes:
+      - ./docker/nats/nats.conf:/nats-server.conf
+    networks:
+      - api-network
+
   db-pgsql:
     image: postgis/postgis:16-3.4-alpine
     container_name: db-pgsql
