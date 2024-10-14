@@ -12,6 +12,7 @@ export class UsersEntity extends BaseEntity {
     id: 'id',
     email: 'email',
     name: 'name',
+    avatar: 'avatar',
     lastName: 'lastName',
     password: 'password',
     role: 'role',
@@ -33,6 +34,13 @@ export class UsersEntity extends BaseEntity {
     nullable: false,
   })
   public lastName: string
+
+  @Column({
+    name: 'avatar',
+    type: 'varchar',
+    nullable: true,
+  })
+  public avatar: string
 
   @Column({
     name: 'role',
@@ -63,6 +71,7 @@ export class UsersEntity extends BaseEntity {
       email: `${alias}.${UsersEntity._fields.email}`,
       name: `${alias}.${UsersEntity._fields.name}`,
       lastName: `${alias}.${UsersEntity._fields.lastName}`,
+      avatar: `${alias}.${UsersEntity._fields.avatar}`,
       password: `${alias}.${UsersEntity._fields.password}`,
       role: `${alias}.${UsersEntity._fields.role}`,
       refreshToken: `${alias}.${UsersEntity._fields.refreshToken}`,

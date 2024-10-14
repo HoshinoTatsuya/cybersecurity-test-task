@@ -7,6 +7,7 @@ import {
   IGetOneUser,
   IGetRefreshToken,
   IGetUserForLogin,
+  ISetAvatar,
   ISetRefreshToken,
 } from '../../../domain/repositories/users/interfaces'
 import {
@@ -14,6 +15,7 @@ import {
   GetOneUserModel,
   GetRefreshTokenModel,
   GetUserForLoginModel,
+  SetAvatarModel,
   SetRefreshTokenModel,
 } from '../../../domain/repositories/users/models'
 import { IUsersRepository } from '../../../domain/repositories/users/users.repository'
@@ -107,6 +109,20 @@ export class UsersRepository implements IUsersRepository {
       }
 
       return new GetOneUserModel(result)
+    } catch (error) {
+      return new BaseException().errorSubstitution({ error })
+    }
+  }
+
+  public async setAvatar(data: ISetAvatar): Promise<SetAvatarModel | BaseException> {
+    try {
+      const result = await this._usersRepository.save({ id: data.userId, avatar: data.pathAvatar })
+
+      if (!result) {
+        return new BaseException(BaseException.users.EN.USER_IS_NOT_FOUND)
+      }
+
+      return new SetAvatarModel({ result: !!result.avatar })
     } catch (error) {
       return new BaseException().errorSubstitution({ error })
     }

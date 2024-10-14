@@ -18,6 +18,7 @@ export class GlobalExceptionFilter extends BaseExceptionFilter implements Except
     const request = ctx.getRequest()
     const shadowData = getShadowData(request)
 
+    console.log(exception)
     if (Array.isArray(exception) && exception.every((error) => error instanceof ValidationError)) {
       const { error, errorsDescriptions } = this._createValidationError(exception, shadowData.userLanguage)
 

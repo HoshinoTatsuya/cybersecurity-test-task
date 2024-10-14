@@ -1,5 +1,4 @@
 export interface IUploadAvatar {
+  file: Express.Multer.File
   userId: string
-  fileData: string
-  fileName: string
 }

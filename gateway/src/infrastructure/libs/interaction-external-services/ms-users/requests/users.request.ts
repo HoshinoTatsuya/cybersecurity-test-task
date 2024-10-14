@@ -45,13 +45,14 @@ export class UsersRequest extends BaseRequestsService {
         serviceName: route.users.nameService,
         method: route.users.methods.uploadAvatar,
         payload,
+        logging: false,
       })
 
       if (result instanceof BaseException) {
         return result
       }
 
-      return new UploadAvatarModel()
+      return new UploadAvatarModel(result)
     } catch (error) {
       return new BaseException().errorSubstitution({ error })
     }

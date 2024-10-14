@@ -6,8 +6,14 @@ import { CustomMessagePattern } from '../../../infrastructure/libs/nats/custom-d
 import { USERS_USECASE } from '../../providers/users.provider'
 import { internalsRoutes } from '../routes'
 
-import { CreateUserDto, GetInfoAboutMeDto, LoginDto, VerifyTokenDto } from './dtos'
-import { CreateUserPresenter, GetInfoAboutMePresenter, LoginPresenter, VerifyTokenPresenter } from './presenters'
+import { CreateUserDto, GetInfoAboutMeDto, LoginDto, UploadAvatarDto, VerifyTokenDto } from './dtos'
+import {
+  CreateUserPresenter,
+  GetInfoAboutMePresenter,
+  LoginPresenter,
+  UploadAvatarPresenter,
+  VerifyTokenPresenter,
+} from './presenters'
 
 @Controller()
 export class UsersController {
@@ -37,17 +43,17 @@ export class UsersController {
     return new LoginPresenter(result)
   }
 
-  //  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.users.uploadAvatar)
-  //  @UseInterceptors(ClassSerializerInterceptor)
-  //  public async uploadAvatar(data: UploadAvatarDto): Promise<UploadAvatarPresenter | BaseException> {
-  //    //    const result = await this._usersUsecase.uploadAvatar(data)
-  //    //
-  //    //    if (result instanceof BaseException) {
-  //    //      return result
-  //    //    }
-  //    //
-  //    //    return new UploadAvatarPresenter(result)
-  //  }
+  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.users.uploadAvatar)
+  @UseInterceptors(ClassSerializerInterceptor)
+  public async uploadAvatar(data: UploadAvatarDto): Promise<UploadAvatarPresenter | BaseException> {
+    const result = await this._usersUsecase.uploadAvatar(data)
+
+    if (result instanceof BaseException) {
+      return result
+    }
+
+    return new UploadAvatarPresenter(result)
+  }
 
   //  @CustomMessagePattern(internalsRoutes.msInfo.msName, internalsRoutes.methods.users.confirmAvatar)
   //  @UseInterceptors(ClassSerializerInterceptor)

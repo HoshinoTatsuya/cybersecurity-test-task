@@ -4,9 +4,8 @@ import { IMsCommentsService } from '../../infrastructure/libs/interaction-extern
 import { IMsUsersService } from '../../infrastructure/libs/interaction-external-services/ms-users/interfaces'
 import { BaseException } from '../exceptions'
 import { IUsers } from '../interfaces/users'
-import { ICreateUser, IGetInfoAboutMe, ILogin } from '../interfaces/users/methods'
-import { IVerifyToken } from '../interfaces/users/methods/verify-token.interface'
-import { CreateUserModel, GetInfoAboutMeModel, LoginModel, VerifyTokenModel } from '../models/users'
+import { ICreateUser, IGetInfoAboutMe, ILogin, IUploadAvatar, IVerifyToken } from '../interfaces/users/methods'
+import { CreateUserModel, GetInfoAboutMeModel, LoginModel, UploadAvatarModel, VerifyTokenModel } from '../models/users'
 
 @Injectable()
 export class UsersUsecase implements IUsers {
@@ -35,7 +34,22 @@ export class UsersUsecase implements IUsers {
     return new LoginModel(result)
   }
 
-  public async uploadAvatar(): Promise<void> {}
+  public async uploadAvatar(data: IUploadAvatar): Promise<UploadAvatarModel | BaseException> {
+    console.log(data.file)
+    const fileData = data.file.buffer.toString('base64')
+    const fileName = data.file.originalname
+    const result = await this._usersService.users.uploadAvatar({
+      userId: data.userId,
+      fileData,
+      fileName,
+    })
+
+    if (result instanceof BaseException) {
+      return result
+    }
+
+    return new UploadAvatarModel(result)
+  }
 
   public async confirmAvatar(): Promise<void> {}
 

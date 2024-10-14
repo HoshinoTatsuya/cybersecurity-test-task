@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common'
+import * as fs from 'node:fs'
+import * as path from 'path'
 import { EncryptionService } from '../../infrastructure/libs/helper-services/encription/encryption.service'
 import { Role } from '../enums'
-
 import { BaseException } from '../exceptions'
 import { JwtServiceIntegration } from '../integrations/jwt/services/jwt.service.integration'
 import { IUsers } from '../interfaces/users'
-import { ICreateUser, IGetInfoAboutMe, ILogin, IVerifyToken } from '../interfaces/users/methods'
-import { CreateUserModel, GetInfoAboutMeModel, LoginModel, VerifyTokenModel } from '../models/users'
+import { ICreateUser, IGetInfoAboutMe, ILogin, IUploadAvatar, IVerifyToken } from '../interfaces/users/methods'
+import { CreateUserModel, GetInfoAboutMeModel, LoginModel, UploadAvatarModel, VerifyTokenModel } from '../models/users'
 import { IUsersRepository } from '../repositories/users/users.repository'
 
 @Injectable()
@@ -65,7 +66,26 @@ export class UsersUsecase implements IUsers {
     return new LoginModel({ token: dataAccessToken.accessToken })
   }
 
-  public async uploadAvatar(): Promise<void> {}
+  public async uploadAvatar(data: IUploadAvatar): Promise<UploadAvatarModel | BaseException> {
+    const { userId, fileName, fileData } = data
+
+    const directoryPath = path.join(__dirname, '../uploads/avatars', userId)
+    const filePath = path.join(directoryPath, fileName)
+
+    if (!fs.existsSync(directoryPath)) {
+      fs.mkdirSync(directoryPath, { recursive: true })
+    }
+
+    fs.writeFileSync(filePath, Buffer.from(fileData, 'base64'))
+
+    const result = await this._usersRepository.setAvatar({ userId, pathAvatar: filePath })
+
+    if (result instanceof BaseException) {
+      return result
+    }
+
+    return new UploadAvatarModel({ result: true })
+  }
 
   public async confirmAvatar(): Promise<void> {}
 

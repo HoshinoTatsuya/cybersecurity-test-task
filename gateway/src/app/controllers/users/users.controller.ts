@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common'
+import { Body, Controller, Get, Inject, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import {
   ApiBearerAuth,
   ApiBody,
@@ -20,7 +21,7 @@ import { USERS_USECASE } from '../../providers/users.provider'
 import { externalRoutes } from '../routes'
 
 import { CreateUserDto, LoginDto } from './dtos'
-import { CreateUserPresenter, GetInfoAboutMePresenter, LoginPresenter } from './presenters'
+import { CreateUserPresenter, GetInfoAboutMePresenter, LoginPresenter, UploadAvatarPresenter } from './presenters'
 
 @ApiTags(externalRoutes.msInfo.controllers.users)
 @Controller(externalRoutes.msInfo.controllers.users)
@@ -110,5 +111,22 @@ export class UsersController {
     }
 
     return new GetInfoAboutMePresenter(result)
+  }
+
+  @Post(externalRoutes.methods.users.uploadAvatar)
+  @ApiBearerAuth()
+  @AuthGuard()
+  @UseInterceptors(FileInterceptor('avatar'))
+  public async uploadAvatar(
+    @CurrentUser(allRoles) user: JwtUserInfoType,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<UploadAvatarPresenter | BaseException> {
+    const result = await this._usersUsecase.uploadAvatar({ userId: user.userId, file })
+
+    if (result instanceof BaseException) {
+      return result
+    }
+
+    return result
   }
 }
